@@ -2,6 +2,7 @@ import axios from "axios";
 import Header from "./components/Header/Header";
 import MusicTable from "./components/MusicTable/MusicTable";
 import React, { useState, useEffect } from "react";
+import NewSongFrom from "./NewSongForm/NewSongForm";
 
 function App() {
   const [song, setSongs] = useState([]);
@@ -24,6 +25,7 @@ function App() {
     <div className="App">
       <Header />
       <MusicTable songs={song} />
+      <NewSongFrom />
     </div>
   );
 }
