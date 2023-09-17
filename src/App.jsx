@@ -21,11 +21,27 @@ function App() {
   useEffect(() => {
     fetchSongs();
   }, []);
+
+  const handleNewSong = async (newSong) => {
+    try {
+      const response = await axios.post(
+        "https://localhost:7137/api/Songs",
+        newSong
+      );
+
+      const updatedSongs = response.data;
+
+      setSongs([...song, updatedSongs]);
+    } catch (error) {
+      console.warn("Error in handleNewSong request: ", error);
+    }
+  };
+
   return (
     <div className="App">
       <Header />
       <MusicTable songs={song} />
-      <NewSongFrom />
+      <NewSongFrom onNewSong={handleNewSong} />
     </div>
   );
 }
