@@ -37,9 +37,23 @@ function App() {
     }
   };
 
+  const handleTitleLookUp = async (title) => {
+    try {
+      const response = await axios.get(
+        `https://localhost:7137/api/Songs?title=${encodeURIComponent(title)}`
+      );
+
+      const songData = response.data;
+      setSongs(songData);
+
+      console.log("Song details:", songData);
+    } catch (error) {
+      console.error("Error during title lookup:", error);
+    }
+  };
   return (
     <div className="App">
-      <Header />
+      <Header LookUpName={handleTitleLookUp} Refresh={fetchSongs} />
       <MusicTable songs={song} />
       <NewSongFrom onNewSong={handleNewSong} />
     </div>
