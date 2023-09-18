@@ -1,4 +1,7 @@
-const SongItem = ({ title, artist, album, genre, releaseDate }) => {
+const SongItem = ({ title, artist, album, genre, releaseDate, onDelete }) => {
+  const handleDelete = () => {
+    onDelete();
+  };
   return (
     <tr>
       <td>{title}</td>
@@ -6,6 +9,9 @@ const SongItem = ({ title, artist, album, genre, releaseDate }) => {
       <td>{album}</td>
       <td>{genre}</td>
       <td>{releaseDate}</td>
+      <td>
+        <button onClick={handleDelete}>Delete</button>
+      </td>
     </tr>
   );
 };

@@ -1,4 +1,6 @@
 import SongItem from "../SongItem/SongItem";
+import React, { useState } from "react";
+import axios from "axios";
 
 const MusicTable = ({ songs = [] }) => {
   const songItems = songs.map((song, i) => (
@@ -10,8 +12,23 @@ const MusicTable = ({ songs = [] }) => {
       genre={song.genre}
       releaseDate={song.releaseDate}
       index={i}
+      onDelete={() => handleDeleteSong(song.id)}
     />
   ));
+
+  const [songList, setSongList] = useState(songs);
+
+  const handleDeleteSong = async (songId) => {
+    try {
+      await axios.delete(`https://localhost:7137/api/Songs/${songId}`);
+
+      setSongList((prevSongs) =>
+        prevSongs.filter((song) => song.id !== songId)
+      );
+    } catch (error) {
+      console.error("Error deleting song: ", error);
+    }
+  };
   return (
     <table>
       <thead>
@@ -21,6 +38,7 @@ const MusicTable = ({ songs = [] }) => {
           <th>Album</th>
           <th>Genre</th>
           <th>ReleaseDate</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>{songItems}</tbody>
